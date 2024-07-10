@@ -7,12 +7,17 @@ const RecipeDetails = () => {
     const { id } = useParams();
     const [ recipe, setRecipe ] = useState(null);
 
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         const foundRecipe = sampleRecipes.find(recipe => recipe.id === parseInt(id));
+    //         setRecipe(foundRecipe);
+    //     }, 1000);
+    // }, [id]);
     useEffect(() => {
-        setTimeout(() => {
-            const foundRecipe = sampleRecipes.find(recipe => recipe.id === parseInt(id));
-            setRecipe(foundRecipe);
-        }, 1000);
-    }, [id]);
+        axios.get(`/api/recipes/${id}/`)
+          .then(response => setRecipe(response.data))
+          .catch(error => console.error(error));
+      }, [id]);
 
     if (!recipe) {
         return (

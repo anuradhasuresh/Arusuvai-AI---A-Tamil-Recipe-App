@@ -5,12 +5,18 @@ import sampleRecipes from '../sampleRecipes';
 const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setRecipes(sampleRecipes);
-        }, 1000);
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setRecipes(sampleRecipes);
+    //     }, 1000);
+    // }, [])
 
+    useEffect(() => {
+        axios.get('/api/recipes/')
+          .then(response => setRecipes(response.data))
+          .catch(error => console.error(error));
+      }, []);
+    
     return (
         <div>
             <h1>Recipe List</h1>
