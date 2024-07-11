@@ -1,0 +1,12 @@
+[
+    {
+      "name": "Spaghetti Carbonara",
+      "description": "A classic Italian pasta dish",
+      "cooking_time": 30,
+      "servings": 4,
+      "ingredients": "400g spaghetti, 200g pancetta, 4 eggs, 100g Parmesan cheese, Black pepper",
+      "instructions": "1. Cook pasta. 2. Fry pancetta. 3. Mix eggs and cheese. 4. Combine all ingredients."
+    },
+    {
+    }
+  ]

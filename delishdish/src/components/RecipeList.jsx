@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import sampleRecipes from '../sampleRecipes';
+import axios from "axios";
 
 const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setRecipes(sampleRecipes);
-    //     }, 1000);
-    // }, [])
 
     useEffect(() => {
         axios.get('/api/recipes/')
@@ -24,7 +18,6 @@ const RecipeList = () => {
                 {recipes.map(recipe => (
                     <li key = {recipe.id}>
                         <Link to={`/recipes/${recipe.id}`}>{recipe.name}</Link>
-                        {recipe.name}
                     </li>
                 ))}
             </ul>

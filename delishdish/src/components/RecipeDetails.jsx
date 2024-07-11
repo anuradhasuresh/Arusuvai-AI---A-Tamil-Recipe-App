@@ -1,40 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import sampleRecipes from '../sampleRecipes';
 
 const RecipeDetails = () => {
     const { id } = useParams();
-    const [ recipe, setRecipe ] = useState(null);
+    const [recipe, setRecipe] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         const foundRecipe = sampleRecipes.find(recipe => recipe.id === parseInt(id));
-    //         setRecipe(foundRecipe);
-    //     }, 1000);
-    // }, [id]);
     useEffect(() => {
-        axios.get(`/api/recipes/${id}/`)
-          .then(response => setRecipe(response.data))
-          .catch(error => console.error(error));
-      }, [id]);
+        let isMounted = true;
+        const source = axios.CancelToken.source();
 
-    if (!recipe) {
-        return (
-            <div>Loading ...</div>
-        )
-    }
+        const fetchRecipe = async () => {
+            try {
+                const response = await axios.get(`/api/recipes/${id}/`, {
+                    cancelToken: source.token
+                });
+                if (isMounted) {
+                    setRecipe(response.data);
+                    setLoading(false);
+                }
+            } catch (error) {
+                if (isMounted) {
+                    setError('Failed to fetch recipe');
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchRecipe();
+
+        return () => {
+            isMounted = false;
+            source.cancel('Component unmounted');
+        };
+    }, [id]);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+    
     return (
         <div>
             <h1>{recipe.name}</h1>
             <p>{recipe.description}</p>
+            <h3>Cooking Time: </h3>
+            <p>{recipe.cooking_time}</p>
+            <h3>Servings: </h3>
+            <p>{recipe.servings}</p>
             <h3>Ingredients: </h3>
             <ul>
-                {recipe.ingredients.map((ingredient, index) => 
-                    (
-                        <li key={index}>{ingredient}</li>
-                    )
-                )}
+                {recipe.ingredients.split(',').map((ingredient, index) => (
+                    <li key={index}>{ingredient.trim()}</li>
+                ))}
             </ul>
             <h3>Instructions:</h3>
             <p>{recipe.instructions}</p>
