@@ -70,7 +70,6 @@
 }
 
 .recipe-card {
-  /* width: calc(33.333% - 14px); */
   width: 30%;
   margin-bottom: 20px;
   border: 1px solid #ddd;
