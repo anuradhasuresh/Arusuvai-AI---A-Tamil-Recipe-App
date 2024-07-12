@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 import axios from "axios";
+import RecipeCard from './RecipeCard';
 
 const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);
@@ -9,19 +9,18 @@ const RecipeList = () => {
         axios.get('/api/recipes/')
           .then(response => setRecipes(response.data))
           .catch(error => console.error(error));
-      }, []);
+    }, []);
     
     return (
         <div>
             <h1>Recipe List</h1>
-            <ul>
+            <div className="recipe-grid">
                 {recipes.map(recipe => (
-                    <li key = {recipe.id}>
-                        <Link to={`/recipes/${recipe.id}`}>{recipe.name}</Link>
-                    </li>
+                    <RecipeCard key={recipe.id} recipe={recipe} />
                 ))}
-            </ul>
+            </div>
         </div>
     )
 }
+
 export default RecipeList;
