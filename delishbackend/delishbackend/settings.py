@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ucq8&s6h@6-sxs!n4c6%n5arp8by#$!-&3v7a0(dj6a4r-!x2c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['ec2-3-138-141-169.us-east-2.compute.amazonaws.com', ]
+ALLOWED_HOSTS = ['ec2-3-138-141-169.us-east-2.compute.amazonaws.com', 'delishdishbucket.s3-website.us-east-2.amazonaws.com']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
