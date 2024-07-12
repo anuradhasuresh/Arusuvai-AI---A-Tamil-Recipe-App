@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { AiOutlineClose } from "react-icons/ai";
 
 const RecipeDetails = () => {
     const { id } = useParams();
@@ -62,30 +63,38 @@ const RecipeDetails = () => {
     };
 
     return (
-        <div>
-            <h1>{recipe.name}</h1>
-            {recipe.image_url && (
-                <img 
-                    src={recipe.image_url} 
-                    alt={recipe.name} 
-                    style={{ maxWidth: '50%', height: 'auto', marginBottom: '20px' }}
-                />
-            )}
-            <p>{recipe.description}</p>
-            <h3>Cooking Time: </h3>
-            <p>{recipe.cooking_time}</p>
-            <h3>Servings: </h3>
-            <p>{recipe.servings}</p>
-            <h3>Ingredients: </h3>
-             <ul>
-                {renderIngredients()}
-            </ul>
-            <h3>Instructions:</h3>
-            <dl>
-                {recipe.instructions.split('\n').map((step, index) => (
-                    <dt key={index}>{step.trim()}</dt>
-                ))}
-            </dl>
+        <div className='container'>
+            <div className='recipe-container'>
+                <h1>{recipe.name}</h1>
+
+                <p>{recipe.description}</p>
+                <h3>Cooking Time: </h3>
+                <p>{recipe.cooking_time}</p>
+                <h3>Servings: </h3>
+                <p>{recipe.servings}</p>
+                <h3>Ingredients: </h3>
+                <ul>
+                    {renderIngredients()}
+                </ul>
+                <h3>Instructions:</h3>
+                <dl>
+                    {recipe.instructions.split('\n').map((step, index) => (
+                        <dt key={index}>{step.trim()}</dt>
+                    ))}
+                </dl>
+            </div>
+            <div className='recipe-image-container'>
+                {recipe.image_url && (
+                    <img 
+                        src={recipe.image_url} 
+                        alt={recipe.name} 
+                        style={{ maxWidth: '80%', height: 'auto', marginBottom: '20px' }}
+                    />
+                )}  
+            </div>
+            <a href='/'>
+                <AiOutlineClose size={36}/>
+            </a>
         </div>
     )
 }

@@ -12,8 +12,8 @@ const RecipeList = () => {
     }, []);
     
     return (
-        <div>
-            <h1>Recipe List</h1>
+        <div style={{textAlign:"center"}}>
+            <h1>Recipe Khazana</h1>
             <div className="recipe-grid">
                 {recipes.map(recipe => (
                     <RecipeCard key={recipe.id} recipe={recipe} />
