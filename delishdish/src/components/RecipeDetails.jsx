@@ -15,8 +15,13 @@ const RecipeDetails = () => {
 
         const fetchRecipe = async () => {
             try {
-                const response = await axios.get(`/api/recipes/${id}/`, {
-                    cancelToken: source.token
+                    const response  = await axios.get(
+                        `http://3.145.122.94/api/recipes/${id}/`,
+                        { 
+                            // headers: {
+                            // 'Access-Control-Allow-Origin':'*',
+                            // },
+                            // cancelToken: source.token
                 });
                 if (isMounted) {
                     console.log('API Response:', response.data); 

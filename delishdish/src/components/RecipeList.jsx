@@ -6,7 +6,13 @@ const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/recipes/')
+        axios.get(`http://3.145.122.94/api/recipes/`, 
+        // {
+            // headers: {
+            //     'Access-Control-Allow-Origin':'*',
+            // },
+        // }
+        )
           .then(response => setRecipes(response.data))
           .catch(error => console.error(error));
     }, []);
